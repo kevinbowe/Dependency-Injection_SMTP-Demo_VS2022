@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dependency_Injection_SMTP_Demo_master_VS2022
+﻿namespace Dependency_Injection_SMTP_Demo_master_VS2022
 {
 	public struct ParsedName
 	{
@@ -14,8 +8,7 @@ namespace Dependency_Injection_SMTP_Demo_master_VS2022
 
 	public class Controller
 	{
-		const string theMessage = "Lets get together, play some music and have some fun";
-		//public readonly char[] nameTokens = new char[] { ' ', ',' };
+		const string theMessage = "Let's get together, play some music and have some fun.";
 
 		/// <summary>
 		/// Construct the email message body
@@ -42,6 +35,8 @@ namespace Dependency_Injection_SMTP_Demo_master_VS2022
 			return message;
 		} // END_BuildMessage
 
+		public static Func<string, bool> noValidToken = (s) => s.IndexOfAny(new char[] { ' ', ',' }) < 0;
+		
 		/// <summary>
 		/// This returns the proper form of the name
 		/// </summary>
@@ -50,9 +45,11 @@ namespace Dependency_Injection_SMTP_Demo_master_VS2022
 		/// <returns>String</returns>
 		public static string GetNameForm(string name)
 		{
-			if (name.IndexOfAny(new char[] { ' ', ',' }) < 0) return "OneName";
+			//if (NoValidTokes(name)) return "OneName";
 
-			if (name.IndexOf(',') > 0)
+			if (noValidToken(name)) return "OneName";
+
+			if (name.IndexOf(',') > 0) 
 				return "LastFirst";
 			return "FirstLast";
 		}

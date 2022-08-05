@@ -3,6 +3,9 @@
 //-- No instance of Controller is required -- All references are static
 //-- Controller controller = new Controller();
 
+/*  BLOCK ONE ***********************************************/
+
+// Build a collection of name strings to be parsed
 List<string> nameList = new List<string>()
 				{
 					 "kevin bowe",
@@ -15,6 +18,7 @@ List<string> nameList = new List<string>()
 					 "Bono"
 				};
 
+/*  BLOCK TWO ***********************************************/
 
 // Inject the correct dependency based on the name format.
 foreach (string name in nameList)
@@ -36,17 +40,21 @@ foreach (string name in nameList)
 	}
 	ParsedName parsedName = nameParser.ParseName(name);
 
+	/*  BLOCK THREE ***********************************************/
+
 	// choose EmailSender
 	IEmailSender emailSender;
 	if (parsedName.Last?.Length == 4)
 			emailSender = new MyEmailSender();
 	else emailSender = new YourEmailSender();
 
+	/*  BLOCK FOUR ***********************************************/
+
 	// Build the message
 	string message = Controller.BuildMessage(name, parsedName, nameParser, emailSender);
 
 	// Send the message
-	emailSender.SendEmail("joe@gmail.com", "me@hotmail.com", "Let play some music", message);
+	emailSender.SendEmail("joe@gmail.com", "me@hotmail.com", "Let's play some music", message);
 
 } // END_FOREACH
 
